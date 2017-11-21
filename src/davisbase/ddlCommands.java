@@ -9,12 +9,19 @@ import static davisbase.Index.pageSize;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
+import static davisbase.vdlCommands.*;
 
 /**
  *
  * @author Mehak Beri
  */
 public class ddlCommands {
+    
+        public static void showTables()
+        {
+            System.out.println("Showing all tables..");
+            parseSelectString("SELECT table_name FROM davisbase_tables;");
+        }
     
 	/**
 	 *  Stub method for dropping tables

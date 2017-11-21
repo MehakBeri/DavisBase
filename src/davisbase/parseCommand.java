@@ -35,6 +35,16 @@ public class parseCommand {
 		*  You will want to rewrite this method to interpret more complex commands. 
 		*/
 		switch (commandTokens.get(0)) {
+                        case "show":
+                                if(commandTokens.get(1).equals("tables"))
+                                {
+                                    showTables();
+                                }      
+                                else
+                                {
+                                   System.out.println("I didn't understand the command: \"" + userCommand + "\""); 
+                                }
+                                break;
 			case "select":
 				parseSelectString(userCommand);
 				break;

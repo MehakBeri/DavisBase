@@ -1,7 +1,12 @@
 package davisbase;
 
 import static davisbase.splashScreen.splashScreen;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * * Main file of the project. Start from here.
@@ -23,7 +28,7 @@ public class Index{
 
 	/* 
 	 *  The Scanner class is used to collect user commands from the prompt
-	 *  There are many ways to do this. This is just one.
+
 	 *
 	 *  Each time the semicolon (;) delimiter is entered, the userCommand 
 	 *  String is re-populated.
@@ -41,7 +46,7 @@ public class Index{
 
 		/* Variable to collect user input from the prompt */
 		String userCommand = ""; 
-
+            
 		while(!isExit) {
 			System.out.print(prompt);
 			/* toLowerCase() renders command case insensitive */
@@ -54,11 +59,5 @@ public class Index{
 
 	}
 
-	
-	
-		
-
-	
-	
 	
 }
