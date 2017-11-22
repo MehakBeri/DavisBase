@@ -62,10 +62,11 @@ public class parseCommand {
 				displayVersion();
 				break;
 			case "exit":
-				exit();
+                                exit();
 				break;
 			case "quit":
 				exit();
+                                break;
 			default:
 				System.out.println("I didn't understand the command: \"" + userCommand + "\"");
 				break;

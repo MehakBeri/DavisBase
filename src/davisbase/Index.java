@@ -50,7 +50,7 @@ public class Index{
 		while(!isExit) {
 			System.out.print(prompt);
 			/* toLowerCase() renders command case insensitive */
-			userCommand = scanner.next().replace("\n", "").replace("\r", "").trim().toLowerCase();
+			userCommand = scanner.next().replace("\n", "").replace("\r", "").trim();
 			
 			parseCommand.parseUserCommand(userCommand);
 		}
@@ -59,5 +59,5 @@ public class Index{
 
 	}
 
-	
+	//test: create table test(col1 int primary key, col2 char, col3 int not null, col4 int);
 }

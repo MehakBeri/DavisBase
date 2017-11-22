@@ -42,12 +42,72 @@ public class ddlCommands {
 		System.out.println("STUB: Calling your method to create a table");
 		System.out.println("Parsing the string:\"" + createTableString + "\"");
 		ArrayList<String> createTableTokens = new ArrayList<String>(Arrays.asList(createTableString.split(" ")));
-
+                //System.out.println(createTableTokens);
 		/* Define table file name */
-		String tableFileName = createTableTokens.get(2) + ".tbl";
-
-		/* YOUR CODE GOES HERE */
-		
+                String[] name=createTableTokens.get(2).split("\\(");
+		String tableFileName = "data//user_data//"+name[0] + ".tbl";
+                String[] temp1= createTableString.split("\\(");
+                String[] temp2 = temp1[1].split("\\)"); //temp2[0] contains the query inside of round brackets of create statement query
+                
+                String[] columns= temp2[0].split(",");
+               // System.out.println("number of columns: "+ columns.length);
+                
+                //assume that first column must be INT and a primary key so <colname datatype primary key>
+                //columns[i] gives column1 description
+                String[] primaryCol= columns[0].split(" ");
+                String primaryDataType= primaryCol[1].toUpperCase();
+                String primaryAttr= (primaryCol[2]).toUpperCase();
+                if(!primaryDataType.equals("INT") || !primaryAttr.equals("PRIMARY"))
+                {
+                    System.out.println("ERROR!! Please Note: A DavisBase table PRIMARY KEY must be (a) a single column, (b) the first column listed in the CREATE statement, and (c) an INT data type");
+                }
+                else
+                {
+                   //primaryCol[0] is primary col's col name
+                    
+                    //if attr is primary key, put column-key="pri" , if anything else, column-key value=X
+                    //if attr is not null or primary, put is_nullable="no", if anything else, value="yes"
+                    
+                    ArrayList<String> columnNames= new ArrayList<>();
+                    columnNames.add(primaryCol[0]);
+                    
+                    ArrayList<String> dataTypes= new ArrayList<>();
+                    dataTypes.add("INT");
+                  //  ArrayList<String> column_key= new ArrayList<>();  no need to make array list cz only 1st will be primary
+                  //  column_key.add("PRI");
+                    ArrayList<String> is_nullable= new ArrayList<>();
+                    is_nullable.add("NO");
+                    int noOfColumns= columns.length;
+                    int i=1; //because first column is of primary key and has already been defined
+                    while(i<noOfColumns)
+                    {
+                        if(columns[i].charAt(0)==' ')
+                        {
+                            columns[i]=columns[i].substring(1);
+                        }
+                        String[] colI= columns[i].split(" ");
+                        String c= colI[0]; //col name
+                        columnNames.add(c);
+                        String dt= colI[1]; //data type: int or string?
+                        dataTypes.add(dt);
+                        if(colI.length>2)
+                        { //no need to check if the attr is primary key or not null, because questions says that only one primary key should be there and it should be the first col
+                            
+                            is_nullable.add("NO");
+                        }else
+                        {
+                            is_nullable.add("YES");
+                        }
+                        i++;
+                    }
+                    
+                    System.out.println(columnNames);
+                    System.out.println(dataTypes);
+                    System.out.println(is_nullable);
+                    
+                    
+                //parse the table creation commands into hashmap named with table name and column names as first entry of the hashmap.
+                
 		/*  Code to create a .tbl file to contain table data */
 		try {
 			/*  Create RandomAccessFile tableFile in read-write mode.
@@ -68,5 +128,7 @@ public class ddlCommands {
 		 *  for each column in the new table 
 		 *  i.e. database catalog meta-data 
 		 */
+                }
 	}
+        
 }
