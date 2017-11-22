@@ -34,7 +34,7 @@ public class parseCommand {
 		*  This switch handles a very small list of hardcoded commands of known syntax.
 		*  You will want to rewrite this method to interpret more complex commands. 
 		*/
-		switch (commandTokens.get(0)) {
+		switch (commandTokens.get(0).toLowerCase()) {
                         case "show":
                                 if(commandTokens.get(1).equals("tables"))
                                 {

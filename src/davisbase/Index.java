@@ -4,6 +4,9 @@ import static davisbase.splashScreen.splashScreen;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +23,9 @@ public class Index{
 	static String version = "v 1.0.0";
 	static String copyright = "©2017 Mehak Beri";
 	static boolean isExit = false;
+        static ArrayList<List<String>> davisbase_tables= new ArrayList<List<String>>(); //metadata table to store all table names
+        static ArrayList<List<String>> davisbase_columns= new ArrayList<List<String>>();  //2d array metadata-columns
+        //stores columns: table name, column name, data_type, column_key, is_nullable?
 	/*
 	 * Page size for all files is 512 bytes by default.
 	 * You may choose to make it user modifiable
@@ -43,7 +49,9 @@ public class Index{
 
 		/* Display the welcome screen */
 		splashScreen();
-
+                //INITIALIZE META DATA TABLES 
+                
+                
 		/* Variable to collect user input from the prompt */
 		String userCommand = ""; 
             

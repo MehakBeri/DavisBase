@@ -5,11 +5,15 @@
  */
 package davisbase;
 
+import static davisbase.Index.davisbase_columns;
+import static davisbase.Index.davisbase_tables;
 import static davisbase.Index.pageSize;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import static davisbase.vdlCommands.*;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -30,6 +34,21 @@ public class ddlCommands {
 	public static void dropTable(String dropTableString) {
 		System.out.println("STUB: Calling dropTable(String s) to drop a table");
 		System.out.println("Parsing the string:\"" + dropTableString + "\"");
+                String toDrop= dropTableString.split(" ")[2];
+                System.out.println("Dropping table "+toDrop+" ...");
+                davisbase_tables.remove(toDrop);
+                System.out.println(davisbase_tables);
+                Iterator<List<String>> itr= davisbase_columns.iterator();
+                while(itr.hasNext())
+                {
+                    List<String> t= itr.next();
+                    if(t.get(0).equalsIgnoreCase(toDrop))
+                    {
+                        itr.remove();
+                    }
+                }
+                
+                System.out.println(davisbase_columns);
 	}
         
         
@@ -72,7 +91,7 @@ public class ddlCommands {
                     columnNames.add(primaryCol[0]);
                     
                     ArrayList<String> dataTypes= new ArrayList<>();
-                    dataTypes.add("INT");
+                    dataTypes.add("int");
                   //  ArrayList<String> column_key= new ArrayList<>();  no need to make array list cz only 1st will be primary
                   //  column_key.add("PRI");
                     ArrayList<String> is_nullable= new ArrayList<>();
@@ -92,7 +111,6 @@ public class ddlCommands {
                         dataTypes.add(dt);
                         if(colI.length>2)
                         { //no need to check if the attr is primary key or not null, because questions says that only one primary key should be there and it should be the first col
-                            
                             is_nullable.add("NO");
                         }else
                         {
@@ -123,12 +141,20 @@ public class ddlCommands {
 		/*  Code to insert a row in the davisbase_tables table 
 		 *  i.e. database catalog meta-data 
 		 */
-		
+		davisbase_tables.add(Arrays.asList(Integer.toString(davisbase_tables.size()),name[0]));
 		/*  Code to insert rows in the davisbase_columns table  
 		 *  for each column in the new table 
 		 *  i.e. database catalog meta-data 
 		 */
+                davisbase_columns.add(Arrays.asList(Integer.toString(davisbase_columns.size()),name[0],primaryCol[0],"int","PRI","NO"));
+                for(int j=1; j<noOfColumns;j++)
+                {
+                davisbase_columns.add(Arrays.asList(Integer.toString(davisbase_columns.size()),name[0],columnNames.get(j), dataTypes.get(j),"X", is_nullable.get(j)));
                 }
+                }
+                
+                System.out.println(davisbase_tables);
+                System.out.println(davisbase_columns);
 	}
         
 }

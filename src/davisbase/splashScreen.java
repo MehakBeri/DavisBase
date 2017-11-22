@@ -5,6 +5,8 @@
  */
 package davisbase;
 
+import static davisbase.Index.davisbase_columns;
+import static davisbase.Index.davisbase_tables;
 import static davisbase.Index.pageSize;
 import static davisbase.helpCommands.getCopyright;
 import static davisbase.helpCommands.getVersion;
@@ -15,6 +17,8 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,18 +65,30 @@ public class splashScreen {
             } catch (IOException ex) {
                 Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+            davisbase_tables.add(Arrays.asList("ROW_ID","TABLE_NAME"));
+            davisbase_columns.add(Arrays.asList("ROW_ID","TABLE_NAME","COLUMN_VALUE","DATA_TYPE","COLUMN_KEY","IS_NULLABLE"));
+            davisbase_tables.add(Arrays.asList("1","davisbase_tables"));
+            davisbase_tables.add(Arrays.asList("2","davisbase_columns"));
+            davisbase_columns.add(Arrays.asList("1","davisbase_tables","ROW_ID","CHAR","PRI","NO"));
+            davisbase_columns.add(Arrays.asList("2","davisbase_tables","TABLE_NAME","CHAR","X","NO"));
+            davisbase_columns.add(Arrays.asList("3","davisbase_columns","ROW_ID","CHAR","PRI","NO"));
+            davisbase_columns.add(Arrays.asList("4","davisbase_columns","TABLE_NAME","CHAR","X","NO"));
+            davisbase_columns.add(Arrays.asList("5","davisbase_columns","COLUMN_VALUE","CHAR","X","NO"));
+            davisbase_columns.add(Arrays.asList("6","davisbase_columns","DATA_TYPE","CHAR","X","NO"));
+            davisbase_columns.add(Arrays.asList("7","davisbase_columns","COLUMN_KEY","CHAR","X","NO"));
+            davisbase_columns.add(Arrays.asList("8","davisbase_columns","IS_NULLABLE","CHAR","X","NO"));
             //create two system tables named davisbase_tables and davisbase_columns
             
             try {
              // Create the empty file with default permissions, etc.
-                     RandomAccessFile davisbase_tables= new RandomAccessFile("data//catalog//davisbase_tables.tbl","rw");
-                    } catch (Exception x) {
+                     RandomAccessFile db_tables= new RandomAccessFile("data//catalog//davisbase_tables.tbl","rw");
+                     
+            } catch (Exception x) {
                          System.out.println(x);
                 }
              try {
              // Create the empty file with default permissions, etc.
-                     RandomAccessFile davisbase_columns= new RandomAccessFile("data//catalog//davisbase_columns.tbl","rw");
+                     RandomAccessFile db_columns= new RandomAccessFile("data//catalog//davisbase_columns.tbl","rw");
                     } catch (Exception x) {
                          System.out.println(x);
                 }
